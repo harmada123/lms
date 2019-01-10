@@ -8,6 +8,7 @@ use App\Teacher;
 use App\Section;
 use App\Students;
 use App\Subject;
+use App\Message;
 use App\User;
 use App\Topic;
 use Illuminate\Http\Request;
@@ -23,13 +24,15 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('student.index');
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('student.index')->with(compact('m1'));
     }
     public function viewtopic(){
         $id = Auth::user()->user_id;
         $student = Students::find($id);
         $sid = $student->section_id;
-        return view('student.viewtopic')->with(compact('sid'));
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('student.viewtopic')->with(compact('sid','m1'));
     }
 
     public function checktopic($id){

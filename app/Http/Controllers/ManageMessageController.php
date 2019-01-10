@@ -15,8 +15,9 @@ class ManageMessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::all()->where('to',Auth::user()->id);
-        return view('message.index')->with(compact('messages'));
+        $messages = Message::where('to',Auth::user()->id)->paginate(3);
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('message.index')->with(compact('messages','m1'));
     }
 
     public function teachermsg(){

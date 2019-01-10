@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Section;
 use App\Students;
 use App\Subject;
+use App\Message;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Topic;
@@ -102,16 +104,18 @@ class ManageTopicController extends Controller
 
         return view('teacher.createtopic')->with(compact('sid','subid'));
     }
-    public function getTopic($sid,$subid){
+    public function getTopic($subid,$sid){
         return DataTables::of(Topic::query()->where(['section_id'=>$sid,'subject_id'=>$subid]))->make(true);
     }
     public function student(){
-        return view('teacher.studentlist');
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('teacher.studentlist')->with(compact('m1'));
     }
 
     public function viewlist($id){
         $section = Section::find($id);
-        return view('teacher.viewstudent')->with(compact('section'));
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('teacher.viewstudent')->with(compact('section','m1'));
     }
 
     public function getStudent($id){

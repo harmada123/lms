@@ -6,7 +6,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    {!! Form::open(['action'=>'RegistrationController@store','method'=>'POST']) !!}
+                    {!! Form::open(['action'=>'ManagePLController@store','method'=>'POST']) !!}
 
                     <div class="form-group">
                         {!! Form::label('name', 'First Name : ') !!}

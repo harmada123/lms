@@ -8,6 +8,7 @@ use App\Topic;
 use App\Upload;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use App\Message;
 
 class ManageHomeworkController extends Controller
 {
@@ -18,7 +19,8 @@ class ManageHomeworkController extends Controller
      */
     public function index()
     {
-        return view('teacher.hwlist');
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('teacher.hwlist')->with(compact('m1'));
     }
 
     /**
@@ -29,8 +31,9 @@ class ManageHomeworkController extends Controller
     public function create()
     {
         $id = Auth::user()->user_id;
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
         $topic = Topic::pluck('topic','id')->all();
-        return view('teacher.createhw')->with(compact('topic','id'));
+        return view('teacher.createhw')->with(compact('topic','id','m1'));
     }
 
     /**

@@ -20,7 +20,7 @@ Auth::routes();
 
 
 Route::resource('/register','RegistrationController');
-Route::get('/plregister','RegistrationController@plreg');
+Route::resource('/plregister','ManagePLController');
 
 
 

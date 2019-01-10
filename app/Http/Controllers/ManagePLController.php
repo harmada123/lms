@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+
+use App\Teacher;
 use App\Photo;
 use App\Students;
 use App\User;
-class RegistrationController extends Controller
+
+class ManagePLController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +19,7 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        return view ('registration.index');
-    }
-
-    public function plreg(){
-        return view('registration.plregistration');
+        return view ('registration.plregistration');
     }
 
     /**
@@ -42,15 +42,14 @@ class RegistrationController extends Controller
     {
         $input = $request->all();
         $input['password'] = bcrypt($request->password);
-
         if($file = $request->file('photo_id')) {
             $name = time().$file->getClientOriginalName();
             $file->move('images',$name);
             $photo = Photo::create(['file'=>$name]);
             $input['photo_id'] = $photo->id;
         }
-        $student = Students::create($input);
-        $input['user_id'] = $student->id;
+        $teacher = Teacher::create($input);
+        $input['user_id'] = $teacher->id;
         User::create($input);
         return redirect('/');
     }
