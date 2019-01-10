@@ -42,7 +42,8 @@ class StudentController extends Controller
         $user = User::where('user_id',$teacher->id)->where('role','teacher')->first(['id']);
         $user_id = $user->id;
         $hw = Homework::all()->where('topic_id',$topic->id);
-        return view('student.topic')->with(compact('topic','hw','user_id'));
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('student.topic')->with(compact('topic','hw','user_id','m1'));
     }
 
     /**
@@ -119,6 +120,7 @@ class StudentController extends Controller
     public function homework(){
         $student = Auth::user()->user_id;
         $section = Students::find($student)->section_id;
-        return view('student.viewhw')->with(compact('section'));
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('student.viewhw')->with(compact('section','m1'));
     }
 }

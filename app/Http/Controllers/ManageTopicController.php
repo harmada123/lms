@@ -101,8 +101,8 @@ class ManageTopicController extends Controller
     }
 
     public function createTopic($sid,$subid){
-
-        return view('teacher.createtopic')->with(compact('sid','subid'));
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('teacher.createtopic')->with(compact('sid','subid','m1'));
     }
     public function getTopic($subid,$sid){
         return DataTables::of(Topic::query()->where(['section_id'=>$sid,'subject_id'=>$subid]))->make(true);

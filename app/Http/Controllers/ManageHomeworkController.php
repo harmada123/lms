@@ -53,6 +53,7 @@ class ManageHomeworkController extends Controller
 
         }
         Homework::create($input);
+        return redirect('/hw');
     }
 
     /**

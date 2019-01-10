@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Courses;
 use App\Section;
 use App\Subject;
+use App\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class ManageSubjectController extends Controller
@@ -102,7 +104,8 @@ class ManageSubjectController extends Controller
     }
     public function viewsubjects($id){
         $section = Section::find($id);
-        return view('teacher.viewsubjects')->with(compact('section'));
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('teacher.viewsubjects')->with(compact('section','m1'));
     }
     public function getSubjects($id){
         $section = Section::find($id);
