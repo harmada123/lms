@@ -64,7 +64,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $message = Message::find($request->id);
+        $msg['status'] = $request->status1;
+        if($file = $request->file('file')) {
+            $name = time().$file->getClientOriginalName();
+            $file->move('uploads',$name);
+            $upload = Upload::create(['file'=>$name]);
+            $input['file'] = $upload->id;
+        }
+        Message::create($input);
+        return redirect('/questions');
     }
 
     /**

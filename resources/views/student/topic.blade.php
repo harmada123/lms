@@ -39,7 +39,7 @@
                 Message / Ask Question to PL
             </div>
             <div class="card-body">
-                {!! Form::open(['action'=>'ManageMessageController@store','method'=>'POST']) !!}
+                {!! Form::open(['action'=>'StudentController@store','method'=>'POST']) !!}
                     <div class="form-group">
                         {!! Form::hidden('topic_id',$topic->id,['value'=>$topic->id]) !!}
                         {!! Form::textarea('message',null,['class'=>'form-control'])!!}

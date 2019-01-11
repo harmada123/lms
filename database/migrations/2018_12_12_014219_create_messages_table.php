@@ -19,7 +19,7 @@ class CreateMessagesTable extends Migration
             $table->integer('from')->unsigned();
             $table->integer('to')->unsigned();
             $table->text('message');
-            $table->text('file');
+            $table->text('file')->nullable();
             $table->text('status');
             $table->timestamps();
         });

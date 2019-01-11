@@ -9,7 +9,7 @@
         <div class="container">
             <hr>
             <div class="form-group">
-                Question :
+                Reply :
                 {{$messages->message}}
             </div>
             <div class="card-body">
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::submit('Ask Question',['class'=>'btn btn-primary pull-right']) !!}
+                    {!! Form::submit('Send',['class'=>'btn btn-primary pull-right']) !!}
                 </div>
                 {!! Form::close()!!}
             </div>

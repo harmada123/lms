@@ -15,7 +15,7 @@ class ManageMessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::where('to',Auth::user()->id)->paginate(3);
+        $messages = Message::where('to',Auth::user()->id)->orderBy('created_at','desc')->paginate(3);
         $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
         return view('message.index')->with(compact('messages','m1'));
     }
@@ -23,7 +23,7 @@ class ManageMessageController extends Controller
     public function teachermsg(){
 
         $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
-        $messages = Message::where('to',Auth::user()->id)->paginate(3);
+        $messages = Message::where('to',Auth::user()->id)->orderBy('created_at','desc')->paginate(3);
         return view('message.teachermsg')->with(compact('messages','m1'));
     }
 
@@ -67,7 +67,14 @@ class ManageMessageController extends Controller
             $upload = Upload::create(['file'=>$name]);
             $input['file'] = $upload->id;
         }
-        $message->update($msg);
+        try {
+            $message->update($msg);
+        } catch (Exception $e) {
+            report($e);
+
+            return false;
+        }
+
         Message::create($input);
         return redirect('/questions');
     }
