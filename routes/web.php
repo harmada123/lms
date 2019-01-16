@@ -83,6 +83,9 @@ Route::get('/homework','StudentController@homework');
 Route::get('/gethwstudent/{id}','StudentController@gethwlist');
 Route::get('/contacts','ContactsController@get');
 
+
+Route::get('/accountsettings/{id}','StudentController@settings');
+
 Route::resource('/message','ManageMessageController');
 Route::get('/replymsg/{id}','ManageMessageController@replymsg');
 Route::get('/questions','ManageMessageController@teachermsg');

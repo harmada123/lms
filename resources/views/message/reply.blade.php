@@ -11,6 +11,10 @@
             <div class="form-group">
                 Reply :
                 {{$messages->message}}
+                <br>
+                @if($messages->upload != null)
+                    <a href="../uploads/{{$messages->upload->file}}">See Attachment</a>
+                @endif
             </div>
             <div class="card-body">
                 {!! Form::open(['action'=>'ManageMessageController@store','method'=>'POST']) !!}

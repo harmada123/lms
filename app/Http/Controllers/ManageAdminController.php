@@ -94,9 +94,9 @@ class ManageAdminController extends Controller
     }
 
     public function settings($id){
-
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
         $users = User::find($id);
-        return view('admin.settings',compact('users'));
+        return view('admin.settings',compact('users','m1'));
 
     }
 

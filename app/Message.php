@@ -21,5 +21,8 @@ class Message extends Model
     public function user(){
         return $this->belongsTo('App\User','from');
     }
+    public function upload(){
+        return $this->belongsTo('App\Upload','file');
+    }
 
 }

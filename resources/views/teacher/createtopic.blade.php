@@ -62,12 +62,12 @@
 
 
                                 {data: 'topic',
-                                    // "render": function(data, type, row, meta){
-                                    //     if(type === 'display'){
-                                    //         data = '<a href="' + 'course/'+ row.id +'/edit" >' + data + '</a>';
-                                    //     }
-                                    //     return data;
-                                    // }
+                                    "render": function(data, type, row, meta){
+                                        if(type === 'display'){
+                                            data = '<a href="' + '../../../topic/'+ row.id +'/edit" >' + data + '</a>';
+                                        }
+                                        return data;
+                                    }
                                 },
 
                             ],

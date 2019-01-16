@@ -74,7 +74,9 @@ class ManageTopicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        $topic = Topic::find($id);
+        return view('teacher.edittopic')->with(compact('m1','topic'));
     }
 
     /**
@@ -86,7 +88,10 @@ class ManageTopicController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $topic = Topic::findOrFail($id);
+        $input = $request->all();
+        $topic->update($input);
+        return redirect('/teacher');
     }
 
     /**
@@ -100,7 +105,7 @@ class ManageTopicController extends Controller
         //
     }
 
-    public function createTopic($sid,$subid){
+    public function createTopic($subid,$sid){
         $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
         return view('teacher.createtopic')->with(compact('sid','subid','m1'));
     }

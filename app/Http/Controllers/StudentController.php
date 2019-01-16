@@ -108,7 +108,17 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if(trim($request->password)==''){
+            $input = $request->except('password');
+        }
+        else{
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
+        $user->update($input);
+        return redirect('/pupil');
     }
 
     /**
@@ -122,6 +132,13 @@ class StudentController extends Controller
         //
     }
 
+    public function settings($id){
+
+        $users = User::find($id);
+        $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
+        return view('student.settings',compact('users','m1'));
+
+    }
     public function getsub($id){
         return DataTables::of(Topic::join('subjects','topics.subject_id','subjects.id')
             ->select('topics.id','subjects.subject','topics.topic','topics.section_id')

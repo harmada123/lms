@@ -23,7 +23,6 @@
                                     <tr>
                                         <th>Topic</th>
                                         <th>Subject Under: </th>
-
                                     </tr>
                                     </thead>
                                 </table>

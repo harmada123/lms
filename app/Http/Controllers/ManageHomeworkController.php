@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Homework;
 use Illuminate\Http\Request;
 use App\Topic;
@@ -32,7 +31,7 @@ class ManageHomeworkController extends Controller
     {
         $id = Auth::user()->user_id;
         $m1 = Message::where(['to'=>Auth::user()->id,'status'=>'new'])->get();
-        $topic = Topic::pluck('topic','id')->all();
+        $topic = Topic::pluck('topic','id')->where('section_id','')->all();
         return view('teacher.createhw')->with(compact('topic','id','m1'));
     }
 
